@@ -1,10 +1,16 @@
-
+html {
+  scroll-behavior: smooth;
+}
 /* Custom default button */
 .btn-secondary,
 .btn-secondary:hover,
 .btn-secondary:focus {
   color: #333;
   text-shadow: none; /* Prevent inheritance from `body` */
+}
+
+.profile-image {
+  padding-bottom: 20px;
 }
 
 body {
@@ -54,9 +60,6 @@ body {
     }
 }
 
-#main-section {
-    overflow: hidden;
-}
 
 #particles-js {
     position: absolute;
@@ -66,4 +69,5 @@ body {
     background-size: cover;
     background-position: 50% 50%;
     opacity: 0.48;
+    z-index: -10;
 }
