@@ -71,7 +71,6 @@ def scrape_schedulicity():
 
     # get just the day
     today = date[-2:]
-    today = "11"
 
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
 
@@ -82,21 +81,21 @@ def scrape_schedulicity():
     for tenant, link in tenants_dict.items():
         driver.get(link)
 
-        time.sleep(1)
+        time.sleep(3)
         driver.find_element(By.XPATH,
                             "/html/body/app-root/div/div/div/div/section/scheduling-services/div/sc-content-wrapper"
                             "/section[1]/div[1]/div[1]/sc-panel/sc-panel-body/sc-list/sc-list-row[1]/sc-list-item["
                             "4]/sc-btn/div").click()
-        time.sleep(1)
+        time.sleep(3)
         driver.find_element(By.XPATH, "/html/body/app-root/sc-modal-container/div/provider-select-modal/sc-list/sc"
                                       "-list-row/sc-list-item[3]/sc-btn/div").click()
 
-        time.sleep(1)
+        time.sleep(3)
         driver.find_element(By.XPATH,
                             "/html/body/app-root/div/div/div/div/section/scheduling-services/div/sc-content-wrapper"
                             "/section[1]/div[3]/sc-panel/sc-panel-body/div/div/div[2]/sc-btn/div").click()
 
-        time.sleep(1)
+        time.sleep(3)
         calendar_element = driver.find_elements(By.CLASS_NAME, "calendar-day")
 
         for item in calendar_element:
@@ -106,6 +105,7 @@ def scrape_schedulicity():
                 else:
                     print(tenant + " has availability!")
                     availability.append(tenant)
+
     print(availability)
     update_html(availability, tenants_dict)
 
