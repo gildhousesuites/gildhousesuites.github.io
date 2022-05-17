@@ -11,6 +11,8 @@
 
 #subtitle {
   font-style: italic;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 #logo {
@@ -27,7 +29,7 @@
 
 #navbar {
   background-color: #C8C2B8;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-weight: 700;
 }
 
@@ -55,6 +57,11 @@ a:active#nav-links {
 #suite-num {
   font-family: 'Droid Serif', serif;
   font-weight: 700;
+}
+
+#name {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
 }
 
 #sched-link {
