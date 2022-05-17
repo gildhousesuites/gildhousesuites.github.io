@@ -50,9 +50,11 @@ a:active#nav-links {
 }
 
 #stylists,
+#barbers,
 #wellness,
 #estheticians,
-#medical-aesthetics {
+#medical-aesthetics,
+#tattoo {
   border-bottom: 2px solid black;
   font-family: 'Droid Serif', serif;
   font-weight: 400;
