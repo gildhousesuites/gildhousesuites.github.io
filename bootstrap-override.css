@@ -1,5 +1,6 @@
 #body {
-  font-family: Montserrat;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
   background-color: #E8E3D6;
   padding-top: 2em;
   height: 100vh;
@@ -26,6 +27,8 @@
 
 #navbar {
   background-color: #C8C2B8;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
 }
 
 a#nav-links {
@@ -45,6 +48,13 @@ a:active#nav-links {
 #estheticians,
 #medical-aesthetics {
   border-bottom: 2px solid black;
+  font-family: 'Droid Serif', serif;
+  font-weight: 400;
+}
+
+#suite-num {
+  font-family: 'Droid Serif', serif;
+  font-weight: 700;
 }
 
 #sched-link {
