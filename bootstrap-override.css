@@ -55,6 +55,12 @@ a:active#nav-links {
   background-color: #867970;
 }
 
+#sched-grey-link {
+  background-color: #B8B8B8;
+  pointer-events: none;
+  cursor: default;
+}
+
 #floor {
   color: #AF8A2F;
 }
