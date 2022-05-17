@@ -1,70 +1,58 @@
+import time
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.action_chains import ActionChains
+import shutil
+from git import Repo
+import os
 
-def gather_tenants():
-    Arrowleaf = "https://www.schedulicity.com/scheduling/AHSHAE/services"
-    Ashley_Cleo = "https://www.vagaro.com/ashleycleohairstudio/"
-    Chroma = "https://www.vagaro.com/chromabzn"
-    Embellish = "https://www.schedulicity.com/scheduling/EHS4EQ/services"
-    Fringe = "https://www.vagaro.com/fringehairstudio406"
-    Hyalite_Studio = "https://hyalitestudio.com/stylists/"
-    KW_Studio = "https://www.schedulicity.com/scheduling/KSBEET7/services"
-    Meraki_Hair_Styling = "https://www.schedulicity.com/scheduling/MHSB2B/services"
-    R2 = "https://randirammell.glossgenius.com/"
-    Salon_South = "https://www.vagaro.com/salonsouth2"
-    Studio_Souss = "https://www.schedulicity.com/scheduling/FSSDSZ/services"
-    Thairapy = "https://www.schedulicity.com/scheduling/HMS5CW/services"
-    Velvet = "http://thevelvetstudio.com/"
-    Slicks_Wax_Skin = "https://square.site/book/06680NG66P1E5/slicks-wax-skin-bozeman-mt"
-    Align_Skin_Massage = "https://www.schedulicity.com/scheduling/ASMDJU/services"
-    Faze_Higher_Beauty = "https://www.schedulicity.com/scheduling/FSS6RM/services"
-    Jamie_Burleigh_Permanent_Makeup = "https://jamie-burleigh-pmu.square.site/"
-    Jenna_Bella = "https://www.schedulicity.com/scheduling/JBSXQL/services"
-    Waxed_and_Tamed = "https://bookings.gettimely.com/waxedandtamed/book?uri=https%3A%2F%2Fbook.gettimely.com%2FBooking" \
-                      "%2FLocation%2F128669%3Fmobile%3DTrue%26params%3D%25253fclient-login%25253dtrue"
-    Good_Karma = "https://www.schedulicity.com/scheduling/NASSMP/services"
-    Wildflower = "https://www.schedulicity.com/scheduling/WNACSP/services"
-    Jenna_Bella_Healing_Bozeman = "https://www.schedulicity.com/scheduling/JBSXQL/services"
-    Vibrant_Life_Therapy = "https://vibrantlifetherapy.com/"
-    American_Treasure_Barbershop = "https://www.schedulicity.com/scheduling/TBA9TC/services"
-    INQ = "https://square.site/book/KX0RR40A42H7X/inq-bozeman-mt"
-    Sapphire_Medical_Aesthetics = "https://sapphiremedicalaesthetics.myaestheticrecord.com/book/appointments" \
-                                  "/MV8xMjU5Ml9jbGluaWNz"
-    Shiloh_Medical_Clinic = "https://shilohmedicalclinic.com/"
+# Arrowleaf Hair Studio = "https://www.schedulicity.com/scheduling/AHSHAE/services"
+# Ashley Cleo Hair Studio = "https://www.vagaro.com/ashleycleohairstudio/book-now"
+# Chroma = "https://www.vagaro.com/chromabzn/book-now"
+# Embellish Hair Studio = "https://www.schedulicity.com/scheduling/EHS4EQ/services"
+# Fringe = "https://www.vagaro.com/fringehairstudio406/book-now"
+# Hyalite_Studio = "https://hyalitestudio.com/stylists/"
+# KW_Studio = "https://www.schedulicity.com/scheduling/KSBEET7/services"
+# Meraki_Hair_Styling = "https://www.schedulicity.com/scheduling/MHSB2B/services"
+# R2 = "https://randirammell.glossgenius.com/"
+# Salon_South = "https://www.vagaro.com/salonsouth2/book-now"
+# Studio_Souss = "https://www.schedulicity.com/scheduling/FSSDSZ/services"
+# Thairapy = "https://www.schedulicity.com/scheduling/HMS5CW/services"
+# Velvet = "http://thevelvetstudio.com/"
+# Slicks_Wax_Skin = "https://square.site/book/06680NG66P1E5/slicks-wax-skin-bozeman-mt"
+# Align_Skin_Massage = "https://www.schedulicity.com/scheduling/ASMDJU/services"
+# Faze_Higher_Beauty = "https://www.schedulicity.com/scheduling/FSS6RM/services"
+# Jamie_Burleigh_Permanent_Makeup = "https://jamie-burleigh-pmu.square.site/"
+# Jenna_Bella = "https://www.schedulicity.com/scheduling/JBSXQL/services"
+# Waxed_and_Tamed = "https://bookings.gettimely.com/waxedandtamed/book?uri=https%3A%2F%2Fbook.gettimely.com%2FBooking" \
+#                   "%2FLocation%2F128669%3Fmobile%3DTrue%26params%3D%25253fclient-login%25253dtrue"
+# Good Karma Nail Studio = "https://www.schedulicity.com/scheduling/NASSMP/services"
+# Wildflower = "https://www.schedulicity.com/scheduling/WNACSP/services"
+# Jenna Bella Skin Care = "https://www.schedulicity.com/scheduling/JBSXQL/services"
+# Vibrant_Life_Therapy = "https://vibrantlifetherapy.com/"
+# American_Treasure_Barbershop = "https://www.schedulicity.com/scheduling/TBA9TC/services"
+# INQ = "https://square.site/book/KX0RR40A42H7X/inq-bozeman-mt"
+# Sapphire_Medical_Aesthetics = "https://sapphiremedicalaesthetics.myaestheticrecord.com/book/appointments" \
+#                               "/MV8xMjU5Ml9jbGluaWNz"
+# Shiloh_Medical_Clinic = "https://shilohmedicalclinic.com/"
 
-    tenants = [Arrowleaf, Ashley_Cleo, Chroma, Embellish, Fringe, Hyalite_Studio, KW_Studio, Meraki_Hair_Styling, R2,
-               Salon_South, Studio_Souss, Thairapy, Velvet, Slicks_Wax_Skin, Align_Skin_Massage, Faze_Higher_Beauty,
-               Jamie_Burleigh_Permanent_Makeup, Jenna_Bella, Waxed_and_Tamed, Good_Karma, Wildflower,
-               Jenna_Bella_Healing_Bozeman, Vibrant_Life_Therapy, American_Treasure_Barbershop, INQ,
-               Sapphire_Medical_Aesthetics, Shiloh_Medical_Clinic]
-    
-    tenants_dict = {
-        "Arrowleaf": "https://www.schedulicity.com/scheduling/AHSHAE/services",
-        "Embellish": "https://www.schedulicity.com/scheduling/EHS4EQ/services",
-        "KW Studio": "https://www.schedulicity.com/scheduling/KSBEET7/services",
-        "Meraki Hair Styling": "https://www.schedulicity.com/scheduling/MHSB2B/services",
-        "Studio Souss": "https://www.schedulicity.com/scheduling/FSSDSZ/services",
-        "Thairapy": "https://www.schedulicity.com/scheduling/HMS5CW/services",
-        "Align Skin & Massage": "https://www.schedulicity.com/scheduling/ASMDJU/services",
-        "Faze Higher Beauty": "https://www.schedulicity.com/scheduling/FSS6RM/services",
-        "Jenna Bella": "https://www.schedulicity.com/scheduling/JBSXQL/services",
-        "Good Karma": "https://www.schedulicity.com/scheduling/NASSMP/services",
-        "Wildflower": "https://www.schedulicity.com/scheduling/WNACSP/services",
-        "American Treasure Barbershop": "https://www.schedulicity.com/scheduling/TBA9TC/services"
+
+def scrape_vagaro():
+    from datetime import date
+
+    vagaro_dict = {
+        "Ashley Cleo Hair Studio": "https://www.vagaro.com/ashleycleohairstudio/book-now",
+        "Chroma": "https://www.vagaro.com/chromabzn/book-now",
+        #  "Fringe": "https://www.vagaro.com/fringehairstudio406/book-now", defaults to tomorrow's date, probably
+        # does not want same-day appointments
+        "Salon South": "https://www.vagaro.com/salonsouth2/book-now"
     }
 
-    return tenants_dict
-
-
-def scrape_schedulicity():
-    from datetime import date
-    import time
-    from selenium import webdriver
-    from selenium.webdriver.chrome.service import Service
-    from selenium.webdriver.common.by import By
-    from webdriver_manager.chrome import ChromeDriverManager
-    from selenium.webdriver.chrome.options import Options
-
     chrome_options = Options()
-    chrome_options.add_argument("--headless")
+    # chrome_options.add_argument("--headless")
 
     # get today's date
     date = str(date.today())
@@ -73,8 +61,72 @@ def scrape_schedulicity():
     today = date[-2:]
 
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
+    driver.maximize_window()
 
-    tenants_dict = gather_tenants()
+    availability = []
+
+    for tenant, link in vagaro_dict.items():
+        driver.get(link)
+
+        time.sleep(3)
+        el = driver.find_element(By.XPATH,
+                                 "/html/body/main/div/div[3]/div[1]/vg-custom-component/div/div[1]/div/div[2]/div[1]/div/div[2]/div[1]/div[3]/ul/li/input")
+        driver.find_element(By.XPATH,
+                            "/html/body/main/div/div[3]/div[1]/vg-custom-component/div/div[1]/div/div[2]/div[1]/div/div[2]/div[1]/div[3]/ul/li/input").click()
+
+        time.sleep(3)
+        action = webdriver.common.action_chains.ActionChains(driver)
+        action.move_to_element_with_offset(el, 60, 100)
+        action.click()
+        action.perform()
+
+        time.sleep(3)
+        driver.find_element(By.XPATH,
+                            "/html/body/main/div/div[3]/div[1]/vg-custom-component/div/div[1]/div/div[2]/div[1]/div/div[2]/a").click()
+
+        time.sleep(3)
+        sorry = driver.find_element(By.XPATH,
+                                    "/html/body/main/div/div[3]/div[1]/vg-custom-component/div/div[1]/div/div[3]/div[5]/div/div[3]")
+
+        if "Sorry" not in sorry.text:
+            # they have availability
+            availability.append(tenant)
+            print(tenant + " has availability!")
+        else:
+            print(tenant + " has no availability :(")
+
+    print(availability)
+    update_html(availability, vagaro_dict)
+
+
+def scrape_schedulicity():
+    from datetime import date
+
+    tenants_dict = {
+        "Arrowleaf Hair Studio": "https://www.schedulicity.com/scheduling/AHSHAE/services",
+        "Embellish Hair Studio": "https://www.schedulicity.com/scheduling/EHS4EQ/services",
+        "KW Studio": "https://www.schedulicity.com/scheduling/KSBEET7/services",
+        "Meraki Hair Styling": "https://www.schedulicity.com/scheduling/MHSB2B/services",
+        "Studio Souss": "https://www.schedulicity.com/scheduling/FSSDSZ/services",
+        "Thairapy": "https://www.schedulicity.com/scheduling/HMS5CW/services",
+        "Align Skin & Massage": "https://www.schedulicity.com/scheduling/ASMDJU/services",
+        "Faze Higher Beauty": "https://www.schedulicity.com/scheduling/FSS6RM/services",
+        "Jenna Bella Skin Care": "https://www.schedulicity.com/scheduling/JBSXQL/services",
+        "Good Karma Nail Studio": "https://www.schedulicity.com/scheduling/NASSMP/services",
+        "Wildflower Nail and Foot Care": "https://www.schedulicity.com/scheduling/WNACSP/services",
+        "American Treasure Barbershop": "https://www.schedulicity.com/scheduling/TBA9TC/services"
+    }
+
+    chrome_options = Options()
+    # chrome_options.add_argument("--headless")
+
+    # get today's date
+    date = str(date.today())
+
+    # get just the day
+    today = date[-2:]
+
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
 
     availability = []
 
@@ -111,7 +163,6 @@ def scrape_schedulicity():
 
 
 def update_html(a_list, tenants_dict):
-    import shutil
     # copy last used gildhouse.html into temp file
     shutil.copyfile("../gildhouse.html", "gildhouse_temp.html")
 
@@ -138,13 +189,9 @@ def update_html(a_list, tenants_dict):
 
     fin.close()
     fout.close()
-    update_website()
 
 
-def update_website():
-    from git import Repo
-    import os
-
+def push_to_github():
     path_parent = os.path.dirname(os.getcwd())
     os.chdir(path_parent)
 
@@ -162,5 +209,6 @@ def update_website():
 
 
 if __name__ == '__main__':
-    gather_tenants()
     scrape_schedulicity()
+    # scrape_vagaro()
+    # push_to_github()

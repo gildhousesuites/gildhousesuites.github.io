@@ -1,0 +1,82 @@
+#body {
+  font-family: Montserrat;
+  background-color: #E8E3D6;
+  padding-top: 2em;
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+#subtitle {
+  font-style: italic;
+}
+
+#logo {
+  max-width: 50%;
+  max-height: 40%;
+}
+
+#head {
+  background-color: white;
+  padding-bottom: 0;
+  margin-bottom: 30px;
+  max-height: 500px;
+}
+
+#navbar {
+  background-color: #867970;
+}
+
+a#nav-links {
+  color: black;
+}
+
+a:hover#nav-links {
+  color: white;
+}
+
+a:active#nav-links {
+  color: white;
+}
+
+#sched-img {
+  max-width: 30em;
+}
+
+#stylists,
+#wellness,
+#estheticians {
+  border-bottom: 2px solid black;
+}
+
+#sched-link {
+  background-color: #867970;
+}
+
+#floor {
+  color: #AF8A2F;
+}
+
+#space {
+  height: 50px;
+}
+
+a:hover#sched-link {
+  background-color: #AF8A2F;
+}
+
+.footer {
+  min-height: 40px;
+  background-color: #AF8A2F;
+  margin-top: auto;
+  text-align: center;
+}
+
+.vertical-center {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
