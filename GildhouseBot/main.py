@@ -1,15 +1,17 @@
-import time
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.common.by import By
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.common.action_chains import ActionChains
-import shutil
-from git import Repo
 import os
+import shutil
+import time
 from collections import OrderedDict
 from datetime import datetime
+import sys
+from git import Repo
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.by import By
+from webdriver_manager.chrome import ChromeDriverManager
+
 
 # Arrowleaf Hair Studio = "https://www.schedulicity.com/scheduling/AHSHAE/services"
 # Ashley Cleo Hair Studio = "https://www.vagaro.com/ashleycleohairstudio/book-now"
@@ -88,7 +90,9 @@ def scrape_r2():
             print(e)
             send_email(tenant)
 
-    print(availability)
+    driver.close()
+    driver.quit()
+
     update_html(availability, tenants_dict)
 
 
@@ -155,7 +159,9 @@ def scrape_leighann_schreiber():
             print(e)
             send_email(tenant)
 
-    print(availability)
+    driver.close()
+    driver.quit()
+
     update_html(availability, tenants_dict)
 
 
@@ -223,7 +229,9 @@ def scrape_haley_walsh():
             print(e)
             send_email(tenant)
 
-    print(availability)
+    driver.close()
+    driver.quit()
+
     update_html(availability, tenants_dict)
 
 
@@ -290,7 +298,9 @@ def scrape_tara_ashley():
             print(e)
             send_email(tenant)
 
-    print(availability)
+    driver.close()
+    driver.quit()
+
     update_html(availability, tenants_dict)
 
 
@@ -360,7 +370,9 @@ def scrape_slicks():
             print(e)
             send_email(tenant)
 
-    print(availability)
+    driver.close()
+    driver.quit()
+
     update_html(availability, tenants_dict)
 
 
@@ -428,13 +440,13 @@ def scrape_vagaro():
             print(e)
             send_email(tenant)
 
-    print(availability)
+    driver.close()
+    driver.quit()
+
     update_html(availability, vagaro_dict)
 
 
 def scrape_libby_hendrix():
-    from datetime import date
-
     vagaro_dict = {
         "Libby Hendrix": "https://www.vagaro.com/velvetstudio/book-now"
     }
@@ -506,13 +518,13 @@ def scrape_libby_hendrix():
             print(e)
             send_email(tenant)
 
-    print(availability)
+    driver.close()
+    driver.quit()
+
     update_html(availability, vagaro_dict)
 
 
 def scrape_jenn_sarchet():
-    from datetime import date
-
     vagaro_dict = {
         "Jenn Sarchet": "https://www.vagaro.com/velvetstudio/book-now"
     }
@@ -584,13 +596,13 @@ def scrape_jenn_sarchet():
             print(e)
             send_email(tenant)
 
-    print(availability)
+    driver.close()
+    driver.quit()
+
     update_html(availability, vagaro_dict)
 
 
 def scrape_jodi_griffith():
-    from datetime import date
-
     vagaro_dict = {
         "Jodi Griffith": "https://www.vagaro.com/salonsouth2/book-now"
     }
@@ -662,13 +674,13 @@ def scrape_jodi_griffith():
             print(e)
             send_email(tenant)
 
-    print(availability)
+    driver.close()
+    driver.quit()
+
     update_html(availability, vagaro_dict)
 
 
 def scrape_cheree_ryan():
-    from datetime import date
-
     vagaro_dict = {
         "Cheree Ryan": "https://www.vagaro.com/salonsouth2/book-now"
     }
@@ -742,7 +754,9 @@ def scrape_cheree_ryan():
             print(e)
             send_email(tenant)
 
-    print(availability)
+    driver.close()
+    driver.quit()
+
     update_html(availability, vagaro_dict)
 
 
@@ -818,7 +832,9 @@ def scrape_jamie_burleigh():
             print(e)
             send_email(tenant)
 
-    print(availability)
+    driver.close()
+    driver.quit()
+
     update_html(availability, tenants_dict)
 
 
@@ -886,7 +902,9 @@ def scrape_waxed_and_tamed():
             print(e)
             send_email(tenant)
 
-    print(availability)
+    driver.close()
+    driver.quit()
+
     update_html(availability, tenants_dict)
 
 
@@ -964,7 +982,9 @@ def scrape_sapphire():
             print(e)
             send_email(tenant)
 
-    print(availability)
+    driver.close()
+    driver.quit()
+
     update_html(availability, tenants_dict)
 
 
@@ -1025,7 +1045,9 @@ def scrape_inq():
             print(e)
             send_email(tenant)
 
-    print(availability)
+    driver.close()
+    driver.quit()
+
     update_html(availability, tenants_dict)
 
 
@@ -1153,7 +1175,9 @@ def scrape_schedulicity():
             send_email(tenant)
             continue
 
-    print(availability)
+    driver.close()
+    driver.quit()
+
     update_html(availability, tenants_dict)
 
 
@@ -1164,6 +1188,19 @@ def replace_all(text, dic):
 
 
 def update_html(a_list, tenants_dict):
+    # handles getting proper .exe directory when bundled as --onefile using pyinstaller
+    import os
+    if getattr(sys, 'frozen', False):
+        # If the application is run as a bundle, the PyInstaller bootloader
+        # extends the sys module by a flag frozen=True and sets the app
+        # path into variable _MEIPASS'.
+        application_path = os.path.dirname(sys.executable)
+    else:
+        application_path = os.path.dirname(os.path.abspath(__file__))
+    # -----------------------------------------------------------------------------
+
+    os.chdir(application_path)
+
     # copy last used gildhouse.html into temp file
     shutil.copyfile("../index.html", "index_temp.html")
 
@@ -1216,7 +1253,8 @@ def push_to_github():
 
 
 def send_email(tenant):
-    import smtplib, ssl
+    import smtplib
+    import ssl
     from email.mime.text import MIMEText
     from email.mime.multipart import MIMEMultipart
 
@@ -1248,7 +1286,7 @@ def send_email(tenant):
     print("sent email about " + tenant)
 
 
-if __name__ == '__main__':
+def main():
     scrape_schedulicity()
     scrape_vagaro()
     scrape_r2()
@@ -1265,3 +1303,8 @@ if __name__ == '__main__':
     scrape_sapphire()
     scrape_inq()
     push_to_github()
+    sys.exit(0)
+
+
+if __name__ == '__main__':
+    main()
