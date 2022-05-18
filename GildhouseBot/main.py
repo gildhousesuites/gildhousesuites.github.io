@@ -2,8 +2,6 @@ import time
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as ec
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.action_chains import ActionChains
@@ -15,21 +13,21 @@ from datetime import datetime
 
 # Arrowleaf Hair Studio = "https://www.schedulicity.com/scheduling/AHSHAE/services"
 # Ashley Cleo Hair Studio = "https://www.vagaro.com/ashleycleohairstudio/book-now"
-Chroma = "https://www.vagaro.com/chromabzn/book-now"
+# Chroma = "https://www.vagaro.com/chromabzn/book-now"
 # Embellish Hair Studio = "https://www.schedulicity.com/scheduling/EHS4EQ/services"
 # Fringe = "https://www.vagaro.com/fringehairstudio406/book-now"
-Hyalite_Studio = "https://hyalitestudio.com/stylists/"
+# Hyalite_Studio = "https://hyalitestudio.com/stylists/"
 # KW_Studio = "https://www.schedulicity.com/scheduling/KSBEET7/services"
 # Meraki_Hair_Styling = "https://www.schedulicity.com/scheduling/MHSB2B/services"
-R2 = "https://randirammell.glossgenius.com/services"
-Salon_South = "https://www.vagaro.com/salonsouth2/book-now"
+# R2 = "https://randirammell.glossgenius.com/services"
+# Salon_South = "https://www.vagaro.com/salonsouth2/book-now"
 # Studio_Souss = "https://www.schedulicity.com/scheduling/FSSDSZ/services"
 # Thairapy = "https://www.schedulicity.com/scheduling/HMS5CW/services"
 # Velvet = "https://www.vagaro.com/velvetstudio/book-now"
-Slicks_Wax_Skin = "https://square.site/book/06680NG66P1E5/slicks-wax-skin-bozeman-mt"
+# Slicks_Wax_Skin = "https://square.site/book/06680NG66P1E5/slicks-wax-skin-bozeman-mt"
 # Align_Skin_Massage = "https://www.schedulicity.com/scheduling/ASMDJU/services"
 # Faze_Higher_Beauty = "https://www.schedulicity.com/scheduling/FSS6RM/services"
-Jamie_Burleigh_Permanent_Makeup = "https://jamie-burleigh-pmu.square.site/"
+# Jamie_Burleigh_Permanent_Makeup = "https://jamie-burleigh-pmu.square.site/"
 # Jenna_Bella = "https://www.schedulicity.com/scheduling/JBSXQL/services"
 # Waxed_and_Tamed = "https://bookings.gettimely.com/waxedandtamed/book?uri=https%3A%2F%2Fbook.gettimely.com%2FBooking%2FLocation%2F128669%3Fmobile%3DTrue%26params%3D%25253fclient-login%25253dtrue"
 # Good Karma Nail Studio = "https://www.schedulicity.com/scheduling/NASSMP/services"
@@ -37,7 +35,7 @@ Jamie_Burleigh_Permanent_Makeup = "https://jamie-burleigh-pmu.square.site/"
 # Jenna Bella Skin Care = "https://www.schedulicity.com/scheduling/JBSXQL/services"
 # Vibrant_Life_Therapy = "https://vibrantlifetherapy.com/"
 # American_Treasure_Barbershop = "https://www.schedulicity.com/scheduling/TBA9TC/services"
-INQ = "https://square.site/book/KX0RR40A42H7X/inq-bozeman-mt"
+# INQ = "https://square.site/book/KX0RR40A42H7X/inq-bozeman-mt"
 
 
 # Sapphire_Medical_Aesthetics = "https://sapphiremedicalaesthetics.myaestheticrecord.com/book/appointments" \
@@ -78,6 +76,7 @@ def scrape_r2():
             driver.find_element(By.XPATH, "/html/body/div/div/div[3]/div/div[2]/ul/li[1]/div/div[2]/button").click()
         except (Exception,) as e:
             print(e)
+            send_email()
 
         time.sleep(3)
 
@@ -85,6 +84,7 @@ def scrape_r2():
             driver.find_element(By.XPATH, "/html/body/div/div/div[3]/div/div[2]/div[1]/a").click()
         except (Exception,) as e:
             print(e)
+            send_email()
 
         time.sleep(3)
 
@@ -99,6 +99,7 @@ def scrape_r2():
 
         except (Exception,) as e:
             print(e)
+            send_email()
 
     print(availability)
     update_html(availability, tenants_dict)
@@ -145,6 +146,7 @@ def scrape_leighann_schreiber():
             driver.find_element(By.XPATH, "/html/body/div/section/section/main/div/section[1]/a[2]/div/h5").click()
         except (Exception,) as e:
             print(e)
+            send_email()
 
         time.sleep(3)
 
@@ -152,6 +154,7 @@ def scrape_leighann_schreiber():
             driver.find_element(By.XPATH, "//*[text()='Continue']").click()
         except (Exception,) as e:
             print(e)
+            send_email()
 
         time.sleep(3)
 
@@ -161,6 +164,7 @@ def scrape_leighann_schreiber():
                 continue
         except (Exception,) as e:
             print(e)
+            send_email()
 
         time.sleep(3)
 
@@ -174,6 +178,7 @@ def scrape_leighann_schreiber():
                 print(tenant + " has no availability :(")
         except (Exception,) as e:
             print(e)
+            send_email()
 
     print(availability)
     update_html(availability, tenants_dict)
@@ -222,9 +227,11 @@ def scrape_haley_walsh():
         time.sleep(1)
 
         try:
-            driver.find_element(By.XPATH, "/html/body/div/section/section/main/div/section[1]/a[27]/div/h5/span").click()
+            driver.find_element(By.XPATH,
+                                "/html/body/div/section/section/main/div/section[1]/a[27]/div/h5/span").click()
         except (Exception,) as e:
             print(e)
+            send_email()
 
         time.sleep(3)
 
@@ -236,6 +243,7 @@ def scrape_haley_walsh():
                 continue
         except (Exception,) as e:
             print(e)
+            send_email()
 
         time.sleep(3)
 
@@ -249,6 +257,7 @@ def scrape_haley_walsh():
                 print(tenant + " has no availability :(")
         except (Exception,) as e:
             print(e)
+            send_email()
 
     print(availability)
     update_html(availability, tenants_dict)
@@ -290,6 +299,7 @@ def scrape_tara_ashley():
             driver.find_element(By.XPATH, "/html/body/div[1]/div/div[1]/div[1]/div/div/div[2]/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div[1]/div/div[13]/div/div/div[2]/div/div[1]/div/button/span").click()
         except (Exception,) as e:
             print(e)
+            send_email()
 
         time.sleep(6)
 
@@ -306,6 +316,7 @@ def scrape_tara_ashley():
                 continue
         except (Exception,) as e:
             print(e)
+            send_email()
 
         time.sleep(3)
 
@@ -319,6 +330,7 @@ def scrape_tara_ashley():
                 print(tenant + " has no availability :(")
         except (Exception,) as e:
             print(e)
+            send_email()
 
     print(availability)
     update_html(availability, tenants_dict)
@@ -371,6 +383,7 @@ def scrape_slicks():
             driver.find_element(By.XPATH, "/html/body/div/section/section/main/div/section[1]/a[42]/div/h5/span").click()
         except (Exception,) as e:
             print(e)
+            send_email()
 
         time.sleep(3)
 
@@ -378,6 +391,7 @@ def scrape_slicks():
             driver.find_element(By.XPATH, "/html/body/div[1]/div/div/div/nav/div/button").click()
         except (Exception,) as e:
             print(e)
+            send_email()
 
         try:
             if month_name not in driver.page_source:
@@ -385,6 +399,7 @@ def scrape_slicks():
                 continue
         except (Exception,) as e:
             print(e)
+            send_email()
 
         time.sleep(3)
 
@@ -398,6 +413,7 @@ def scrape_slicks():
                 print(tenant + " has no availability :(")
         except (Exception,) as e:
             print(e)
+            send_email()
 
     print(availability)
     update_html(availability, tenants_dict)
@@ -798,6 +814,7 @@ def scrape_jamie_burleigh():
             driver.find_element(By.XPATH, "/html/body/div/div/div[1]/div[1]/div/div/div[2]/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div[1]/div/div[17]/div/div/div[2]/div/div[1]/div/button/span/span[1]").click()
         except (Exception,) as e:
             print(e)
+            send_email()
 
         time.sleep(6)
 
@@ -810,6 +827,7 @@ def scrape_jamie_burleigh():
             driver.find_element(By.XPATH, "/html/body/div[1]/div/div/div/nav/div/button").click()
         except (Exception,) as e:
             print(e)
+            send_email()
 
         try:
             if month_name not in driver.page_source:
@@ -817,6 +835,7 @@ def scrape_jamie_burleigh():
                 continue
         except (Exception,) as e:
             print(e)
+            send_email()
 
         time.sleep(3)
 
@@ -830,6 +849,7 @@ def scrape_jamie_burleigh():
                 print(tenant + " has no availability :(")
         except (Exception,) as e:
             print(e)
+            send_email()
 
     print(availability)
     update_html(availability, tenants_dict)
@@ -874,6 +894,7 @@ def scrape_waxed_and_tamed():
             driver.find_element(By.XPATH, "/html/body/div[1]/form/div[1]/div/div[1]/div[3]/div/div[2]/div/div/label[7]/label/span").click()
         except (Exception,) as e:
             print(e)
+            send_email()
 
         time.sleep(3)
 
@@ -881,6 +902,7 @@ def scrape_waxed_and_tamed():
             driver.find_element(By.XPATH, "/html/body/div[1]/form/div[2]/button").click()
         except (Exception,) as e:
             print(e)
+            send_email()
 
         time.sleep(3)
 
@@ -890,6 +912,7 @@ def scrape_waxed_and_tamed():
                 continue
         except (Exception,) as e:
             print(e)
+            send_email()
 
         time.sleep(3)
 
@@ -906,6 +929,7 @@ def scrape_waxed_and_tamed():
                 print(tenant + " has no availability :(")
         except (Exception,) as e:
             print(e)
+            send_email()
 
     print(availability)
     update_html(availability, tenants_dict)
@@ -946,6 +970,7 @@ def scrape_sapphire():
             driver.find_element(By.XPATH, "/html/body/div[1]/div/div[2]/div/div/div/div/input").click()
         except (Exception,) as e:
             print(e)
+            send_email()
 
         time.sleep(3)
 
@@ -953,6 +978,7 @@ def scrape_sapphire():
             driver.find_element(By.XPATH, "/html/body/div[1]/div/div[2]/div/div/div/div[2]/div/div[1]/div[1]/h4/a").click()
         except (Exception,) as e:
             print(e)
+            send_email()
 
         time.sleep(3)
 
@@ -960,6 +986,7 @@ def scrape_sapphire():
             driver.find_element(By.XPATH, "/html/body/div[1]/div/div[2]/div/div/div/div[2]/div/div[1]/div[2]/div/div[3]/div[1]/label").click()
         except (Exception,) as e:
             print(e)
+            send_email()
 
         time.sleep(3)
 
@@ -967,6 +994,7 @@ def scrape_sapphire():
             driver.find_element(By.XPATH, "/html/body/div[1]/div/div[2]/div/div/div/div[1]/div/div/div[2]/button").click()
         except (Exception,) as e:
             print(e)
+            send_email()
 
         time.sleep(3)
 
@@ -974,6 +1002,7 @@ def scrape_sapphire():
             driver.find_element(By.XPATH, "/html/body/div[1]/div/div[2]/div/div/div/div[3]/input[2]").click()
         except (Exception,) as e:
             print(e)
+            send_email()
 
         time.sleep(3)
 
@@ -981,6 +1010,7 @@ def scrape_sapphire():
             driver.find_element(By.XPATH, "/html/body/div[1]/div/div[2]/div/div/div/div[2]/div[2]/div[3]/button").click()
         except (Exception,) as e:
             print(e)
+            send_email()
 
         time.sleep(3)
 
@@ -1000,6 +1030,7 @@ def scrape_sapphire():
                 print(tenant + " has availability!")
         except (Exception,) as e:
             print(e)
+            send_email()
 
     print(availability)
     update_html(availability, tenants_dict)
@@ -1041,6 +1072,7 @@ def scrape_inq():
             driver.find_element(By.XPATH, "/html/body/div[1]/div/div/div/div/div[2]/div[1]/div/section/section/div/div[2]/div/div[2]/div/div/input").click()
         except (Exception,) as e:
             print(e)
+            send_email()
 
         time.sleep(3)
 
@@ -1048,6 +1080,7 @@ def scrape_inq():
             driver.find_element(By.XPATH, "/html/body/div[1]/div/div/div/nav/div/button").click()
         except (Exception,) as e:
             print(e)
+            send_email()
 
         time.sleep(3)
 
@@ -1067,6 +1100,7 @@ def scrape_inq():
                 print(tenant + " has availability!")
         except (Exception,) as e:
             print(e)
+            send_email()
 
     print(availability)
     update_html(availability, tenants_dict)
@@ -1121,6 +1155,7 @@ def scrape_schedulicity():
                                 "4]/sc-btn/div").click()
         except (Exception,) as e:
             print(e)
+            send_email()
             continue
 
         time.sleep(3)
@@ -1129,6 +1164,7 @@ def scrape_schedulicity():
                                           "-list-row/sc-list-item[3]/sc-btn/div").click()
         except (Exception,) as e:
             print(e)
+            send_email()
             continue
 
         time.sleep(3)
@@ -1138,6 +1174,7 @@ def scrape_schedulicity():
                                 "/section[1]/div[3]/sc-panel/sc-panel-body/div/div/div[2]/sc-btn/div").click()
         except (Exception,) as e:
             print(e)
+            send_email()
             continue
 
         time.sleep(3)
@@ -1154,6 +1191,7 @@ def scrape_schedulicity():
             calendar_element = driver.find_elements(By.CLASS_NAME, "calendar-day")
         except (Exception,) as e:
             print(e)
+            send_email()
             continue
 
         try:
@@ -1166,6 +1204,7 @@ def scrape_schedulicity():
                         availability.append(tenant)
         except (Exception,) as e:
             print(e)
+            send_email()
 
     print(availability)
     update_html(availability, tenants_dict)
@@ -1227,6 +1266,31 @@ def push_to_github():
     origin = repo.remote('origin')
     origin.push()
     print("pushed")
+
+# def send_email():
+#     # Import smtplib for the actual sending function
+#     import smtplib
+#
+#     # Import the email modules we'll need
+#     from email.mime.text import MIMEText
+#
+#     # Open a plain text file for reading.  For this example, assume that
+#     # the text file contains only ASCII characters.
+#     with open(textfile, 'rb') as fp:
+#         # Create a text/plain message
+#         msg = MIMEText(fp.read())
+#
+#     # me == the sender's email address
+#     # you == the recipient's email address
+#     msg['Subject'] = 'The contents of %s' % textfile
+#     msg['From'] = me
+#     msg['To'] = you
+#
+#     # Send the message via our own SMTP server, but don't include the
+#     # envelope header.
+#     s = smtplib.SMTP('localhost')
+#     s.sendmail(me, [you], msg.as_string())
+#     s.quit()
 
 
 if __name__ == '__main__':
