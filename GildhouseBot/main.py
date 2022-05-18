@@ -1218,10 +1218,10 @@ def replace_all(text, dic):
 
 def update_html(a_list, tenants_dict):
     # copy last used gildhouse.html into temp file
-    shutil.copyfile("../availability.html", "availability_temp.html")
+    shutil.copyfile("../index.html", "index_temp.html")
 
-    fin = open("availability_temp.html", "rt")
-    fout = open("../availability.html", "wt")
+    fin = open("index_temp.html", "rt")
+    fout = open("../index.html", "wt")
 
     od1 = OrderedDict([("Schedule now", "No availability"), ("sched-link", "sched-grey-link"),
                        ('class="active"', 'class=""')])
@@ -1259,8 +1259,8 @@ def push_to_github():
 
     repo_dir = ''
     repo = Repo(repo_dir)
-    file_list = ['availability.html']
-    commit_message = 'updated availability.html after script ran'
+    file_list = ['index.html']
+    commit_message = 'updated index.html after script ran'
     repo.index.add(file_list)
     repo.index.commit(commit_message)
     origin = repo.remote('origin')
@@ -1294,19 +1294,19 @@ def push_to_github():
 
 
 if __name__ == '__main__':
-    scrape_schedulicity()
-    scrape_vagaro()
-    scrape_r2()
-    scrape_leighann_schreiber()
-    scrape_haley_walsh()
-    scrape_tara_ashley()
-    scrape_slicks()
-    scrape_libby_hendrix()
-    scrape_jenn_sarchet()
-    scrape_jodi_griffith()
-    scrape_cheree_ryan()
-    scrape_jamie_burleigh()
-    scrape_waxed_and_tamed()
-    scrape_sapphire()
-    scrape_inq()
+    # scrape_schedulicity()
+    # scrape_vagaro()
+    # scrape_r2()
+    # scrape_leighann_schreiber()
+    # scrape_haley_walsh()
+    # scrape_tara_ashley()
+    # scrape_slicks()
+    # scrape_libby_hendrix()
+    # scrape_jenn_sarchet()
+    # scrape_jodi_griffith()
+    # scrape_cheree_ryan()
+    # scrape_jamie_burleigh()
+    # scrape_waxed_and_tamed()
+    # scrape_sapphire()
+    # scrape_inq()
     push_to_github()
