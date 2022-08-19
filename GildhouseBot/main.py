@@ -1242,13 +1242,23 @@ def push_to_github():
     os.chdir(path_parent)
 
     repo_dir = ''
-    repo = Repo(repo_dir)
-    file_list = ['index.html']
+    # repo = Repo(repo_dir)
+    # file_list = ['index.html']
     commit_message = 'updated index.html after script ran'
-    repo.index.add(file_list)
-    repo.index.commit(commit_message)
-    origin = repo.remote('origin')
-    origin.push()
+    # repo.index.add(file_list)
+    # repo.index.commit(commit_message)
+    # origin = repo.remote('origin')
+    # origin.push()
+
+    try:
+        repo = Repo(repo_dir)
+        repo.git.add(update=True)
+        repo.index.commit(commit_message)
+        origin = repo.remote(name='origin')
+        origin.push()
+    except:
+        print('Some error occured while pushing the code')
+
     print("pushed to github repository")
 
 
@@ -1287,21 +1297,21 @@ def send_email(tenant):
 
 
 def main():
-    scrape_schedulicity()
-    scrape_vagaro()
-    scrape_r2()
-    scrape_leighann_schreiber()
-    scrape_haley_walsh()
-    scrape_tara_ashley()
-    scrape_slicks()
-    scrape_libby_hendrix()
-    scrape_jenn_sarchet()
-    scrape_jodi_griffith()
-    scrape_cheree_ryan()
-    scrape_jamie_burleigh()
-    scrape_waxed_and_tamed()
-    scrape_sapphire()
-    scrape_inq()
+    # scrape_schedulicity()
+    # scrape_vagaro()
+    # scrape_r2()
+    # scrape_leighann_schreiber()
+    # scrape_haley_walsh()
+    # scrape_tara_ashley()
+    # scrape_slicks()
+    # scrape_libby_hendrix()
+    # scrape_jenn_sarchet()
+    # scrape_jodi_griffith()
+    # scrape_cheree_ryan()
+    # scrape_jamie_burleigh()
+    # scrape_waxed_and_tamed()
+    # scrape_sapphire()
+    # scrape_inq()
     push_to_github()
     sys.exit(0)
 
