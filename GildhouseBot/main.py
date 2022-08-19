@@ -1250,14 +1250,11 @@ def push_to_github():
     # origin = repo.remote('origin')
     # origin.push()
 
-    try:
-        repo = Repo(repo_dir)
-        repo.git.add(update=True)
-        repo.index.commit(commit_message)
-        origin = repo.remote(name='origin')
-        origin.push()
-    except:
-        print('Some error occured while pushing the code')
+    repo = Repo(repo_dir)
+    repo.git.add(update=True)
+    repo.index.commit(commit_message)
+    origin = repo.remote(name='origin')
+    origin.push()
 
     print("pushed to github repository")
 
